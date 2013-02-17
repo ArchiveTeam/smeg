@@ -5,7 +5,7 @@ import json
 import sqlite3
 import sys
 
-db = sqlite3.connect("posterous.sqlite", isolation_level=None)
+db = sqlite3.connect("posterous.sqlite", timeout=300, isolation_level=None)
 cursor = db.cursor()
 try:
     cursor.execute("SELECT * FROM blog LIMIT 1")
