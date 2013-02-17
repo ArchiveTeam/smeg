@@ -5,6 +5,8 @@ import json
 import sqlite3
 import sys
 
+rangeid2 = int(sys.argv[2]) + 1
+
 db = sqlite3.connect("posterous.sqlite", timeout=10, isolation_level=None)
 cursor = db.cursor()
 try:
@@ -38,7 +40,7 @@ headers = {
 
 cursor = db.cursor()
 try:
-    for blog_id in range(int(sys.argv[1]), int(sys.argv[2])):
+    for blog_id in range(int(sys.argv[1]), rangeid2):
         cursor.execute("SELECT id FROM blog WHERE id = ?", (blog_id,))
         if cursor.fetchone():
             print "%i: already in DB" % blog_id
