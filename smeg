@@ -8,9 +8,10 @@
 
 chunk="$1"
 log=${chunk}0000.hostnames
+if [ "$2" != "" ]; then ipaddr="--interface $2"; else ipaddr=""; fi
 touch $log
 (for s in $(perl -lne 'BEGIN { $start=shift; $end=shift } chomp; s/\t.*//; $seen{$_}=1; END { for ($start..$end) { print $_ unless $seen{$_} } }' ${chunk}0000 ${chunk}9999 $log ); do
 	echo $s >&2
 	echo "ateam-site: $s"
-	curl -s -H "X-Requested-With: XMLHttpRequest" -H "X-Xhrsource: posterous" -X GET -H "Cookie: _sharebymail_session_id=e55e807375f457efa9a22e091c0685c7; email=bugmenot%40trash-mail.com; _plogin=Veritas; logged_in_before=true" http://posterous.com/api/2/sites/$s
+	curl ${ipaddr} -s -H "X-Requested-With: XMLHttpRequest" -H "X-Xhrsource: posterous" -X GET -H "Cookie: _sharebymail_session_id=e55e807375f457efa9a22e091c0685c7; email=bugmenot%40trash-mail.com; _plogin=Veritas; logged_in_before=true" http://posterous.com/api/2/sites/$s
 done) | perl -ne '$|=1; if (/ateam-site: (\d+)/) { $site=$1 } if (/"full_hostname":"([^"]+)"/) { print "$site\t$1\n"; }' >> $log
