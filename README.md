@@ -9,7 +9,7 @@ Normal (Shell, curl and perl)
 -----------------------------
 Uses HTTP, opens a connection with each request.
 
-    ./smeg Chunk
+    ./smeg Chunk [IP to bind to]
 
 Keep-alive (Python)
 -------------------
