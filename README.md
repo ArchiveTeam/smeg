@@ -1,7 +1,7 @@
 smeg
 ====
 
-Posterous ID discovery tool
+[Posterous ID discovery tool](http://archiveteam.org/index.php?title=Posterous)
 
 There are 2 options:
 
